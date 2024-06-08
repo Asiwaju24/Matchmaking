@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matchmaking App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgb(20 60 140);
+          //background: url("lov.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+        }
+        .container {
+            text-align: center;
+          background: url("love.jpg");
+          border-radius: 20px;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          color: white;
+        }
+        #boys, #girls {
+            margin-bottom: 20px;
+        }
+        #match-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #match-result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+  input{
+    outline: none;
+  }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+          <h1>Find Your Perfect Match</h1>
+        <div id="boys">
+            <label for="boy">Boy's Name: </label>
+            <input type="text" id="boy">
+        </div>
+        <div id="girls">
+            <label for="girl">Girl's Name: </label>
+            <input type="text" id="girl">
+        </div>
+        <button id="match-btn">Match</button>
+        <div id="match-result"></div>
+    </div>
+
+    <script>
+        document.getElementById('match-btn').addEventListener('click', function() {
+            var boyName = document.getElementById('boy').value.trim();
+            var girlName = document.getElementById('girl').value.trim();
+            var matchResult = document.getElementById('match-result');
+            
+            if (boyName === '' || girlName === '') {
+                matchResult.textContent = 'Please enter both names.';
+            } else {
+                // Simple matching algorithm
+                var matchScore = getMatchScore(boyName, girlName);
+                matchResult.textContent = 'Match Score: ' + matchScore + '%';
+            }
+        });
+
+        // Simple matching algorithm: counts the number of common letters
+        function getMatchScore(name1, name2) {
+            var count = 0;
+            var name1Chars = name1.toLowerCase().split('');
+            var name2Chars = name2.toLowerCase().split('');
+
+            name1Chars.forEach(function(char) {
+                if (name2Chars.includes(char)) {
+                    count++;
+                }
+            });
+
+            var matchScore = (count / Math.max(name1.length, name2.length)) * 100;
+            return matchScore.toFixed(2);
+        }
+    </script>
+</body>
+</html>
